@@ -1,0 +1,20 @@
+#calendar{
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.fc-day-number{
+	font-weight: bolder;
+}
+.fc-other-month .fc-day-number{
+	font-weight: 100;
+}
+th{
+	padding-bottom: 4px !important;
+	padding-top: 4px !important;
+}
+ul.menu li {
+    list-style: none; 
+    margin: 0;
+    display: inline;
+}

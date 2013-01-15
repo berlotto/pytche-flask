@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Pytche.org{%block title%}{%endblock%}</title>
+
+    <script type='text/javascript' src="{{ url_for('static', filename='jquery/jquery-1.8.3.js') }}"></script>
+    <script type='text/javascript' src="{{ url_for('static', filename='jquery/jquery-ui-1.9.2.custom.min.js') }}"></script>
+
+    <script type='text/javascript' src="{{ url_for('static', filename='fullcalendar-1.5.4/fullcalendar/fullcalendar.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='fullcalendar-1.5.4/fullcalendar/fullcalendar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fullcalendar-1.5.4/fullcalendar/fullcalendar.print.css') }}" media='print'>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery/humanity/jquery-ui-1.9.2.custom.min.css') }}">
+
+    {%block header%}{%endblock%}
+
+</head>
+<body>
+
+<ul class="menu">
+	<li><a href="/">Início</a></li>
+	<li><a href="/agenda">Agenda</a></li>
+</ul>
+
+{%block main%}{%endblock%}
+
+</body>
+</html>

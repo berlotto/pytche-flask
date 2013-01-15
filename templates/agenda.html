@@ -1,96 +1,14 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-	<meta charset="UTF-8">
-	<title>Pytche.org</title>
+{%extends "base.html"%}
 
-    <script src="{{ url_for('static', filename='jquery/jquery-1.8.3.js') }}"></script>
-    <script src="{{ url_for('static', filename='jquery/jquery-ui-1.9.2.custom.min.js') }}"></script>
-    
-    <script src="{{ url_for('static', filename='fullcalendar-1.5.4/fullcalendar/fullcalendar.min.js') }}"></script>
+{%block header%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pytche.css') }}">
+<script type='text/javascript' src="{{ url_for('static', filename='js/agenda.js') }}"></script>
+{%endblock%}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='fullcalendar-1.5.4/fullcalendar/fullcalendar.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='fullcalendar-1.5.4/fullcalendar/fullcalendar.print.css') }}" media='print'>
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='jquery/humanity/jquery-ui-1.9.2.custom.min.css') }}">
-    <style type="text/css">
-    	#calendar{
-    		width: 900px;
-    		margin-left: auto;
-    		margin-right: auto;
-    	}
-    	.fc-day-number{
-    		font-weight: bolder;
-    	}
-    	.fc-other-month .fc-day-number{
-    		font-weight: 100;
-    	}
-    	th{
-    		padding-bottom: 4px !important;
-    		padding-top: 4px !important;
-    	}
-    </style>
-	<script type='text/javascript'>
-
-		$(document).ready(function() {
-
-			$('#calendar').fullCalendar({
-				header: {
-					left: 'prev,next today',
-					center: 'title',
-					right: 'month,agendaWeek'
-				},
-				defaultView: 'month',
-				editable: true,
-				ignoreTimezone: false,
-
-				monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-				monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
-				dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
-				dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
-				allDayText: 'Dia Inteiro',
-				buttonText: {
-					prev: '&nbsp;&#9668;&nbsp;',
-					next: '&nbsp;&#9658;&nbsp;',
-					prevYear: '&nbsp;&lt;&lt;&nbsp;',
-					nextYear: '&nbsp;&gt;&gt;&nbsp;',
-					today: 'hoje',
-					month: 'mensal',
-					week: 'semanal',
-					day: 'diário'
-				},
-
-				events: {
-			        url: '/events.json',
-			        cache: true
-			    },
-			    dayClick: function(date, allDay, jsEvent, view) {
-			        //alert(date + ' has been clicked!');
-			    },
-			    eventClick: function(calEvent, jsEvent, view) {
-
-			        alert('Event: ' + calEvent.title);
-			        // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-			        // alert('View: ' + view.name);
-
-			        // change the border color just for fun
-			        // $(this).css('border-color', 'red');
-			        return false; // <- to not follow the event url
-			    },
-			    selectable: true,
-			    unselectAuto: true,
-			    theme: true,
-			});
-
-		});
-
-	</script>
-
-</head>
-<body>
-
-	<h1>Agenda</h1>
-	<div id='calendar'></div>
-
-</body>
-</html>
+{%block main%}
+<h1>Agenda</h1>
+<div style="float:right;">
+	<a href="#novo">Adicionar Evento</a>
+</div>
+<div id='calendar'></div>
+{%endblock%}

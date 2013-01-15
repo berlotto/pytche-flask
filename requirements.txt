@@ -1,8 +1,10 @@
 Flask==0.9
 Flask-FlatPages==0.3
+Flask-WTF==0.8.2
 Jinja2==2.6
 Markdown==2.2.1
 PyYAML==3.10
+WTForms==1.0.2
 Werkzeug==0.8.3
 argparse==1.2.1
 simplejson==3.0.7

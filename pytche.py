@@ -4,6 +4,7 @@
 #
 # ### ### ### ### ###
 from flask import Flask, render_template
+from forms import EventForm
 import datetime
 import simplejson
 
@@ -11,7 +12,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def agenda():
-	return render_template('agenda.html')
+	return render_template('index.html')
+
+@app.route('/agenda')
+def agenda():
+	form = EventForm()
+	return render_template('agenda.html', form=form)
 
 @app.route('/events.json')
 def events_json():

@@ -11,10 +11,10 @@ import simplejson
 app = Flask(__name__)
 
 @app.route('/')
-def agenda():
+def index():
 	return render_template('index.html')
 
-@app.route('/agenda')
+@app.route('/agenda/')
 def agenda():
 	form = EventForm()
 	return render_template('agenda.html', form=form)

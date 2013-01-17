@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
 	$('#calendar').fullCalendar({
 		header: {
 			left: 'prev,next today',
@@ -41,7 +40,7 @@ $(document).ready(function() {
 
 	        // change the border color just for fun
 	        // $(this).css('border-color', 'red');
-	        return false; // <- to not follow the event url
+	        // return false; // <- to not follow the event url
 	    },
 	    selectable: true,
 	    unselectAuto: true,

@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-from wtforms import Form, TextField, DateTimeField, validators
+from wtforms import Form, validators, DateTimeField
+from flask.ext.wtf.html5 import URLField,TextField 
 
 class EventForm(Form):
 	title = TextField( u'Título', [validators.Length(min=4, max=25)] )

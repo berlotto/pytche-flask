@@ -6,8 +6,24 @@
 
 {%block main%}
 <h1>Agenda</h1>
+
+<div class="novoevento">
+	<form method="POST" action="{{url_for('events_save')}}" class="formulario">
+	    {{ form.csrf_token }}
+	    
+	    {%for field in form%}
+	    <p class="campo">
+	    	{{ field.label }} {{ field }}
+	    </p>
+	    {%endfor%}
+	    
+	    <input class="submit" type="submit" value="Salvar">
+	    <button id="cancel">Cancelar</button>
+	</form>
+</div>
+
 <div style="float:right;">
-	<a href="#novo">Adicionar Evento</a>
+	<a href="#novo" id="botaonovo">Adicionar Evento</a>
 </div>
 <div id='calendar'></div>
 {%endblock%}

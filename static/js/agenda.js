@@ -44,7 +44,17 @@ $(document).ready(function() {
 	    },
 	    selectable: true,
 	    unselectAuto: true,
-	    theme: true,
+	    // theme: true,
+	});
+
+	$('#botaonovo').click(function(){
+		$('.novoevento').slideDown();
+		// $('.novoevento').fadeIn();
+	});	
+	$('#cancel').click(function(){
+		$('.novoevento').slideUp();
+		// $('.novoevento').fadeOut();
+		return false;
 	});
 
 });

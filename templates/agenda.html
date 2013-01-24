@@ -1,7 +1,13 @@
 {%extends "base.html"%}
 
 {%block header%}
+<script type='text/javascript' src="{{ url_for('static', filename='jscal/src/js/jscal2.js') }}"></script>
+<script type='text/javascript' src="{{ url_for('static', filename='jscal/src/js/lang/pt.js') }}"></script>
 <script type='text/javascript' src="{{ url_for('static', filename='js/agenda.js') }}"></script>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='jscal/src/css/jscal2.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='jscal/src/css/border-radius.css') }}">
+
 {%endblock%}
 
 {%block main%}
@@ -10,10 +16,13 @@
 <div class="novoevento">
 	<form method="POST" action="{{url_for('events_save')}}" class="formulario">
 	    {{ form.csrf_token }}
-	    
+	    {{form.errors}}
 	    {%for field in form%}
 	    <p class="campo">
 	    	{{ field.label }} {{ field }}
+	    	{%if field.errors%}
+	    		{{field.errors}}
+	    	{%endif%}
 	    </p>
 	    {%endfor%}
 	    
@@ -21,6 +30,19 @@
 	    <button id="cancel">Cancelar</button>
 	</form>
 </div>
+
+<script type="text/javascript">
+
+  $('#data_ini').after("<button id=\"btndt1\" class=\"botao_data\">...</button>");
+  $('#data_fim').after("<button id=\"btndt2\" class=\"botao_data\">...</button>");
+  var cal = Calendar.setup({
+      onSelect: function(cal) { cal.hide() },
+      showTime: true
+  });
+  cal.manageFields("btndt1", "data_ini", "%d/%m/%Y %H:%M");
+  cal.manageFields("btndt2", "data_fim", "%d/%m/%Y %H:%M");
+
+</script>
 
 <div style="float:right;">
 	<a href="#novo" id="botaonovo">Adicionar Evento</a>

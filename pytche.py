@@ -3,11 +3,10 @@
 # ### Pytche Site ###
 #
 # ### ### ### ### ###
-from flask import Flask, render_template
-from flask import Flask
+from flask import Flask, render_template, request, flash, url_for, redirect, g
+from flask.ext.sqlalchemy import SQLAlchemy
 from flask_flatpages import FlatPages
-from forms import EventForm
-
+from wtforms import Form, validators, DateTimeField, TextField, TextAreaField
 import datetime
 import simplejson
 
@@ -17,6 +16,22 @@ try:
 except:
 	pass
 pages = FlatPages(app)
+db    = SQLAlchemy(app)
+
+class EventForm(Form):
+	title = TextField( u'Título', [validators.Length(min=4, max=25)] )
+	obs = TextAreaField( u'Observações', [validators.Length(min=0, max=1000)] )
+	data_ini = DateTimeField( u'Data/Hora Incício', format='%d/%m/%Y %H:%M')
+	data_fim = DateTimeField( u'Data/Hora Fim', format='%d/%m/%Y %H:%M')
+
+class EventModel(db.Model):
+	__tablename__ = 'evento'
+	id = db.Column(db.Integer, primary_key=True)
+	title = db.Column( db.String(55))
+	obs = db.Column(db.Text)
+	data_ini = db.Column(db.DateTime)
+	data_fim = db.Column(db.DateTime)
+
 
 @app.route('/page/<path:path>/')
 def page(path):
@@ -31,7 +46,10 @@ def index():
 
 @app.route('/agenda/')
 def agenda():
-	form = EventForm()
+	if hasattr(g,'form'):
+		form = g.form
+	else:
+		form = EventForm()
 	return render_template('agenda.html', form=form)
 
 
@@ -42,12 +60,29 @@ def hello(eventid):
 
 @app.route('/events/save/',methods=['POST'])
 def events_save():
-	return "OK"
+	form = EventForm(request.form)
+	if request.method == 'POST' and form.validate():
+		#try:
+		evento = EventModel()
+		evento.title = form['title'].data
+		evento.obs = form['obs'].data
+		evento.data_ini = form['data_ini'].data
+		evento.data_fim = form['data_fim'].data
+		db.session.add(evento)
+		db.session.commit()
+		flash(u"Evento salvo com sucesso.")
+		# except:
+		# 	flash("O Evento não pode ser criado!!")
+	else:
+		flash(u"Os dados informados não estão corretos.")
+		g.form = form
+	return redirect(url_for('agenda'))
 
 
 @app.route('/events.json')
 def events_json():
 	today = datetime.date.today()
+	evts = EventModel.objects.all()
 	events = [
 				{
 					'title': 'Evento HOJE o dia todo',
@@ -65,4 +100,4 @@ def events_json():
 	return simplejson.dumps(events)
 
 if __name__=="__main__":
-	app.run(debug=True)
+	app.run()
